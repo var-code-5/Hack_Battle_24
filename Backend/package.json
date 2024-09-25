@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Wining this Hackathon ",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/var-code-5/Hack_Battle_24.git"
+  },
+  "author": "varshith",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/var-code-5/Hack_Battle_24/issues"
+  },
+  "homepage": "https://github.com/var-code-5/Hack_Battle_24#readme",
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "prisma": "^5.20.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  }
+}
