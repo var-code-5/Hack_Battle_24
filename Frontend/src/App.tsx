@@ -1,15 +1,15 @@
-import Header from "./components/header"
-import Hero from "./components/Hero"
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Main from './pages/Main';
+import Finder from './pages/Finder';
 
 function App() {
   return (
-    <>
-      <div className="flex flex-col min-h-screen w-[100%]">
-      <Header></Header>
-      <Hero></Hero>
-      </div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/finder" element={<Finder />} />
+      </Routes>
+    </Router>
   )
 }
 

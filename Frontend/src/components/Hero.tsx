@@ -1,13 +1,33 @@
-import { useState } from "react";
-import axios
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import qs from 'qs';
+import { useState } from 'react';
 
 const Hero = () => {
-  const [message,setMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();  // Initialize the useNavigate hook
 
   const handleMessage = () => {
-    setMessage('');
+    const data = qs.stringify({
+      'place_name': message
+    });
     
-  }
+    axios.post('http://localhost:3000/places', data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+      // Navigate to /finder and pass the response data as state
+      navigate('/finder', { state: { data: response.data.results } });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+    setMessage('');
+  };
   return (
     <section className="relative w-[100%] overflow-hidden">
       <div className="relative w-full max-w-[100vw] mx-auto pt-16 sm:pt-[10vw] pb-8 sm:pb-[1.94vw] px-4 sm:px-[0.28vw]">

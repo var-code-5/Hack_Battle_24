@@ -1,20 +1,49 @@
-import axios from 'axios';
+import express from 'express';
 import env from 'dotenv';
+import bodyParser from 'body-parser';
+import cors from "cors";
+import axios from 'axios';
 
 env.config();
+const app = express();
 
-const locationQuery = 'tourist attractions in Kolkata';
-const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(locationQuery)}&key=${process.env.GOOGLE_PLACES_API_KEY}`;
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors(corsOptions));
 
-axios.get(url)
-  .then(response => {
-    // console.log('Tourist Places Response:', JSON.stringify(response.data, null, 2));
-    // response.data.results.forEach(place => {
-    //   console.log(`Name: ${place.name}, Address: ${place.formatted_address}, Rating: ${place.rating || 'N/A'}`);
-    // });
-    response.data.results.forEach(element => {
-      console.log(`${element.name}: ${element.photos}`)
-    })})
-  .catch(error => {
-    console.error('Error fetching tourist places:', error.message);
+var whitelist = [
+  'http://localhost:5173/',
+];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+
+const port = process.env.PORT || 3000;
+
+  app.post('/places',(req,res)=>{
+    console.log(req.body);
+    const place_name = req.body.place_name;
+    console.log(place_name);
+    const locationQuery = `tourist places in ${place_name}`;
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(locationQuery)}&key=${process.env.GOOGLE_PLACES_API_KEY}`;
+    axios.get(url)
+    .then(response => {
+      console.log(response.data);
+      res.send(response.data);  
+    })
+    .catch(error => {
+      console.error(`Error fetching places: ${error.message}`);
+      res.status(500).send({message:"Failed to fetch"});
+    });
   });
+
+app.listen(port,()=>{
+  console.log(`Server is running on port ${port}`);
+});
