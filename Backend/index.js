@@ -3,6 +3,7 @@ import env from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from "cors";
 import axios from 'axios';
+import auth from './routes.js'
 
 env.config();
 const app = express();
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
+app.use("/auth", auth);
 
 var whitelist = [
   'http://localhost:5173/',

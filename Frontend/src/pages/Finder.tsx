@@ -92,7 +92,7 @@ const FinderPage = () => {
               <p>Status: {place.business_status}</p>
               {place.photos && place.photos.length > 0 && (
                 <img
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=`}
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=AIzaSyAwIz3TZxczBeuGENL-6ZSeMgPOpLK_zZM`}
                   alt={place.name}
                   className="mt-2 mb-2 rounded"
                 />
@@ -126,6 +126,7 @@ const FinderPage = () => {
             <p>No places selected.</p>
           )}
         </div>
+        <button className="px-2 py-1 bg-blue-500">Make Mytrip</button>
       </div>
     </div>
   );
