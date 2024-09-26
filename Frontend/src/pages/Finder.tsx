@@ -54,7 +54,7 @@ const FinderPage = () => {
               <p>Status: {place.business_status}</p>
               {place.photos && place.photos.length > 0 && (
                 <img
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=AIzaSyAwIz3TZxczBeuGENL-6ZSeMgPOpLK_zZM`}
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${place.photos[0].photo_reference}&key=`}
                   alt={place.name}
                   className="mt-2 mb-2 rounded"
                 />
