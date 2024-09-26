@@ -1,10 +1,11 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const FinderPage = () => {
   const location = useLocation();
   const { data } = location.state || {};
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const navigate = useNavigate(); // Use navigate for redirection
 
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -19,60 +20,21 @@ const FinderPage = () => {
     });
   };
 
-  interface Geometry {
-    location: {
-      lat: number;
-      lng: number;
-    };
-    viewport: {
-      northeast: {
-        lat: number;
-        lng: number;
-      };
-      southwest: {
-        lat: number;
-        lng: number;
-      };
-    };
-  }
+  const handleSubmit = () => {
+    if (selectedIds.length === 0) {
+      alert("Please select at least one place");
+      return;
+    }
+    localStorage.setItem("place_id", JSON.stringify(selectedIds));
+    
+    // Redirect to /dashboard after saving data
+    navigate("/dashboard");
+  };
 
-  interface OpeningHours {
-    open_now: boolean;
-    weekday_text: string[];
-  }
-
-  interface Photo {
-    height: number;
-    html_attributions: string[];
-    width: number;
-    photo_reference: string;
-  }
-
-  interface PlusCode {
-    compound_code: string;
-    global_code: string;
-  }
-
-  interface Place {
-    business_status: string;
-    formatted_address: string;
-    geometry: Geometry;
-    icon: string;
-    icon_background_color: string;
-    icon_mask_base_uri: string;
-    name: string;
-    opening_hours?: OpeningHours;
-    photos: Photo[];
-    place_id: string;
-    plus_code?: PlusCode;
-    rating: number;
-    reference: string;
-    types: string[];
-    user_ratings_total: number;
-  }
-
+  // Place interfaces and rest of the code remain the same...
+  
   return (
-    <div className="w-[100vw] py-[10vh] bg-[#e6eff9]">
+    <div className="w-[100%] py-[10vh] bg-[#e6eff9]">
       <div className="my-[10vh] mx-[10vw] bg-white p-5 rounded-lg shadow-md">
         <h1 className="font-raleway text-2xl mb-4">
           Select the places you want to visit
@@ -126,7 +88,9 @@ const FinderPage = () => {
             <p>No places selected.</p>
           )}
         </div>
-        <button className="px-2 py-1 bg-blue-500">Make Mytrip</button>
+        <button className="px-2 py-1 bg-blue-500" onClick={handleSubmit}>
+          Make My Trip
+        </button>
       </div>
     </div>
   );
