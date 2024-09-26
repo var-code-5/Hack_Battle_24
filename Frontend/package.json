@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aldabil/react-scheduler": "^2.9.5",
+    "@syncfusion/ej2-base": "^27.1.50",
+    "@syncfusion/ej2-react-grids": "^27.1.50",
+    "@syncfusion/ej2-react-schedule": "^27.1.50",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "qs": "^6.13.0",

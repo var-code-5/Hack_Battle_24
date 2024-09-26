@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Protect from './utils/Protect';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Calender from './components/scheduler'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route element ={<Protect/>} >
           <Route path="/dashboard" element={<Dashboard/>}/>
         </Route>
+        <Route path="/cal" element={<Calender/>} />
       </Routes>
     </Router>
   )
