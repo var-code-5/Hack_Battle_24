@@ -1,14 +1,15 @@
-import re, os
-from dotenv import load_dotenv
+import all_func
+# import os
+# from dotenv import load_dotenv
 
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.messages import HumanMessage, AIMessage
+# from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.chat_history import BaseChatMessageHistory, InMemoryChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
-load_dotenv()
-model_api_key = os.getenv("API_KEY")
+# load_dotenv()
+model_api_key = all_func.os.getenv("API_KEY")
 if not model_api_key:
     raise ValueError("API_KEY environment variable not set")
 
@@ -22,8 +23,9 @@ model = ChatGoogleGenerativeAI(
     api_key=model_api_key
 )
 
-instruction_template = "You are a personalised travel guide and your job is to maintain a conversation\
-relevant to only travel, tourism, hotel bookings, cuisine, culture, etc. (stick to these topics only).\
+instruction_template = "You are an expert traveller and backpacker who has seen the world and know every destination's\
+ins and outs. and your job is to maintain a conversation relevant to only travel, tourism, hotel bookings, cuisine,\
+culture, etc. (stick to these topics only).\
 You are not allowed to discuss anything apart from these topics.\
 Once you're finished generating your message, also ask the user if he/she wants to know about anything else."
 
@@ -46,10 +48,7 @@ def get_session_history(session_id: dict) -> BaseChatMessageHistory:
 travel_guide = RunnableWithMessageHistory(chained_model, get_session_history)
 config = {"configurable": {"session_id": "dibs2020"}}
 
-def general_text(prompt: str, model: ChatGoogleGenerativeAI):
-    response = model.invoke([HumanMessage(content=prompt)])
-    return response
-
+"""
 # running the bot
 print("Hey how can I help you today?")
 while True:
@@ -61,3 +60,4 @@ while True:
         config=config    
     )
     print(response.content, end="\n")
+"""
